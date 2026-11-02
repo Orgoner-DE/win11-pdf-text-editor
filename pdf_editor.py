@@ -81,8 +81,6 @@ class PDFTextEditor:
             return
         try:
             edited_text = self.text_area.get("1.0", tk.END).strip()
-            # Erstelle neues PDF nur mit dem editierten Text der aktuellen Seite
-            # (für den Versuch einfach gehalten)
             c = canvas.Canvas(save_path, pagesize=A4)
             width, height = A4
             y = height - 50
@@ -92,10 +90,10 @@ class PDFTextEditor:
                     c.showPage()
                     y = height - 50
                     c.setFont("Helvetica", 12)
-                c.drawString(50, y, line[:100])  # max Länge pro Zeile
+                c.drawString(50, y, line[:120])  # max Länge pro Zeile
                 y -= 15
             c.save()
-            messagebox.showinfo("Gespeichert", f"Datei gespeichert:\n{save_path}\n\nHinweis: Layout des Originals wird nicht beibehalten. Nur der Text der aktuellen Seite wurde als neues PDF exportiert.")
+            messagebox.showinfo("Gespeichert", f"Datei gespeichert:\n{save_path}\n\nHinweis: Nur der Text der aktuellen Seite wurde als neues PDF exportiert. Original-Layout wird nicht beibehalten.")
         except Exception as e:
             messagebox.showerror("Fehler beim Speichern", str(e))
 
